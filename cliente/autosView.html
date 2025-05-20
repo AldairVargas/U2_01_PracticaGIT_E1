@@ -1,421 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vista de Carros</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #e74c3c;
-            --accent-color: #3498db;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-        }
-
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        /* Header mejorado */
-        .hero-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
-            color: white;
-            padding: 4rem 0 3rem;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .hero-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-            opacity: 0.15;
-            z-index: 0;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-title i {
-            color: var(--secondary-color);
-            margin-right: 15px;
-        }
-
-        .hero-subtitle {
-            font-weight: 300;
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
-        }
-
-        .search-container {
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .search-input {
-            padding: 12px 20px;
-            border-radius: 50px;
-            border: none;
-            width: 100%;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .search-btn {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            background: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 7px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .search-btn:hover {
-            background: #c0392b;
-            transform: translateY(-1px);
-        }
-
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            padding: 15px 25px;
-            border-radius: 8px;
-            text-align: center;
-            min-width: 120px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Estilos para las cards de vehículos (manteniendo el diseño original) */
-        .card-car {
-            border: none;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-            background-color: white;
-        }
-        .card-car:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        .card-header {
-            background-color: #343a40;
-            color: white;
-            cursor: pointer;
-            padding: 1.25rem;
-            border-bottom: none;
-        }
-        .card-header h5 {
-            margin: 0;
-            font-weight: 600;
-        }
-        .card-body {
-            padding: 0;
-            display: none;
-        }
-        .car-details, .provider-details {
-            padding: 1.5rem;
-        }
-        .car-details {
-            border-bottom: 1px solid #eee;
-            background-color: #f8f9fa;
-        }
-        .detail-item {
-            margin-bottom: 0.8rem;
-        }
-        .detail-label {
-            font-weight: 600;
-            color: #495057;
-        }
-        .detail-value {
-            color: #212529;
-        }
-        .provider-details {
-            background-color: white;
-        }
-        .provider-title {
-            color: #343a40;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        .no-cars {
-            text-align: center;
-            padding: 2rem;
-            color: #6c757d;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vista de Carros</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script> <!-- Reemplaza con tu kit de FontAwesome o usa SVG -->
 </head>
-<body>
-<header class="hero-header">
-    <div class="container hero-content">
-        <div class="text-center">
-            <h1 class="hero-title">
-                <i class="fas fa-car"></i>Explora Nuestro Catálogo
-            </h1>
-            <p class="hero-subtitle">
-                Descubre la perfecta combinación de estilo, rendimiento y confianza en nuestra selección premium de vehículos
-            </p>
-            <div class="stats-container">
-                <div class="stat-item">
-                    <div class="stat-number">150+</div>
-                    <div class="stat-label">Vehículos</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">25</div>
-                    <div class="stat-label">Marcas</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<body class="bg-gray-100 font-sans text-gray-800">
 
-<div class="container">
-    <div class="row" id="cars-container">
-        <div class="col-md-6 col-lg-4">
-            <div class="card-car">
-                <div class="card-header" onclick="toggleDetails(this)">
-                    <h5>Toyota Corolla 2023</h5>
-                </div>
-                <div class="card-body">
-                    <div class="car-details">
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-tachometer-alt me-2"></i>Modelo:</span>
-                            <span class="detail-value">Corolla SE</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-calendar-alt me-2"></i>Año:</span>
-                            <span class="detail-value">2023</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-paint-brush me-2"></i>Color:</span>
-                            <span class="detail-value">Rojo</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-gas-pump me-2"></i>Combustible:</span>
-                            <span class="detail-value">Gasolina</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-cogs me-2"></i>Transmisión:</span>
-                            <span class="detail-value">Automática</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-dollar-sign me-2"></i>Precio:</span>
-                            <span class="detail-value">$25,500</span>
-                        </div>
-                    </div>
-                    <div class="provider-details">
-                        <div class="provider-title">
-                            <i class="fas fa-store me-2"></i>Información del Proveedor
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-user me-2"></i>Nombre:</span>
-                            <span class="detail-value">Autos Premium S.A.</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-phone me-2"></i>Teléfono:</span>
-                            <span class="detail-value">+1 234 567 890</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-envelope me-2"></i>Email:</span>
-                            <span class="detail-value">contacto@autospremium.com</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-map-marker-alt me-2"></i>Dirección:</span>
-                            <span class="detail-value">Av. Principal 123, Ciudad</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Encabezado Hero -->
+  <header class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-16 relative">
+    <div class="absolute inset-0 opacity-10 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1350&q=80');"></div>
+    <div class="relative z-10 text-center px-4">
+      <h1 class="text-4xl font-bold mb-4"><i class="fas fa-car text-red-500 mr-2"></i>Explora Nuestro Catálogo</h1>
+      <p class="text-lg max-w-xl mx-auto">Descubre la combinación perfecta de estilo, rendimiento y confianza en nuestra selección premium de vehículos.</p>
+      <div class="mt-6 flex justify-center gap-6 flex-wrap">
+        <div class="bg-white/10 backdrop-blur px-6 py-4 rounded-lg border border-white/20">
+          <div class="text-2xl font-bold text-red-400">150+</div>
+          <div class="text-sm uppercase tracking-wider text-white/80">Vehículos</div>
         </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="card-car">
-                <div class="card-header" onclick="toggleDetails(this)">
-                    <h5>Honda Civic 2022</h5>
-                </div>
-                <div class="card-body">
-                    <div class="car-details">
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-tachometer-alt me-2"></i>Modelo:</span>
-                            <span class="detail-value">Civic Touring</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-calendar-alt me-2"></i>Año:</span>
-                            <span class="detail-value">2022</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-paint-brush me-2"></i>Color:</span>
-                            <span class="detail-value">Azul</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-gas-pump me-2"></i>Combustible:</span>
-                            <span class="detail-value">Híbrido</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-cogs me-2"></i>Transmisión:</span>
-                            <span class="detail-value">CVT</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-dollar-sign me-2"></i>Precio:</span>
-                            <span class="detail-value">$23,800</span>
-                        </div>
-                    </div>
-                    <div class="provider-details">
-                        <div class="provider-title">
-                            <i class="fas fa-store me-2"></i>Información del Proveedor
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-user me-2"></i>Nombre:</span>
-                            <span class="detail-value">Distribuidora Honda</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-phone me-2"></i>Teléfono:</span>
-                            <span class="detail-value">+1 987 654 321</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-envelope me-2"></i>Email:</span>
-                            <span class="detail-value">ventas@hondadist.com</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-map-marker-alt me-2"></i>Dirección:</span>
-                            <span class="detail-value">Calle Secundaria 456, Ciudad</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="bg-white/10 backdrop-blur px-6 py-4 rounded-lg border border-white/20">
+          <div class="text-2xl font-bold text-red-400">25</div>
+          <div class="text-sm uppercase tracking-wider text-white/80">Marcas</div>
         </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="card-car">
-                <div class="card-header" onclick="toggleDetails(this)">
-                    <h5>Ford Mustang 2021</h5>
-                </div>
-                <div class="card-body">
-                    <div class="car-details">
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-tachometer-alt me-2"></i>Modelo:</span>
-                            <span class="detail-value">Mustang GT</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-calendar-alt me-2"></i>Año:</span>
-                            <span class="detail-value">2021</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-paint-brush me-2"></i>Color:</span>
-                            <span class="detail-value">Negro</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-gas-pump me-2"></i>Combustible:</span>
-                            <span class="detail-value">Gasolina</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-cogs me-2"></i>Transmisión:</span>
-                            <span class="detail-value">Manual (6 velocidades)</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-dollar-sign me-2"></i>Precio:</span>
-                            <span class="detail-value">$35,200</span>
-                        </div>
-                    </div>
-                    <div class="provider-details">
-                        <div class="provider-title">
-                            <i class="fas fa-store me-2"></i>Información del Proveedor
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-user me-2"></i>Nombre:</span>
-                            <span class="detail-value">Ford Motors Direct</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-phone me-2"></i>Teléfono:</span>
-                            <span class="detail-value">+1 555 123 4567</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-envelope me-2"></i>Email:</span>
-                            <span class="detail-value">forddirect@fordmotors.com</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"><i class="fas fa-map-marker-alt me-2"></i>Dirección:</span>
-                            <span class="detail-value">Av. Industrial 789, Ciudad</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
+  </header>
+
+  <!-- Cards -->
+  <main class="max-w-7xl mx-auto py-12 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="cars-container">
+
+    <!-- Card ejemplo -->
+    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all">
+      <div class="bg-gray-800 text-white px-6 py-4 cursor-pointer rounded-t-lg" onclick="toggleDetails(this)">
+        <h2 class="text-lg font-semibold">Toyota Corolla 2023</h2>
+      </div>
+      <div class="hidden transition-all">
+        <div class="px-6 py-4 border-b bg-gray-50">
+          <p class="mb-2"><strong class="text-gray-700">Modelo:</strong> Corolla SE</p>
+          <p class="mb-2"><strong class="text-gray-700">Año:</strong> 2023</p>
+          <p class="mb-2"><strong class="text-gray-700">Color:</strong> Rojo</p>
+          <p class="mb-2"><strong class="text-gray-700">Combustible:</strong> Gasolina</p>
+          <p class="mb-2"><strong class="text-gray-700">Transmisión:</strong> Automática</p>
+          <p><strong class="text-gray-700">Precio:</strong> $25,500</p>
+        </div>
+        <div class="px-6 py-4 bg-white">
+          <p class="font-semibold text-gray-800 border-b pb-2 mb-3">Información del Proveedor</p>
+          <p class="mb-2"><strong class="text-gray-700">Nombre:</strong> Autos Premium S.A.</p>
+          <p class="mb-2"><strong class="text-gray-700">Teléfono:</strong> +1 234 567 890</p>
+          <p class="mb-2"><strong class="text-gray-700">Email:</strong> contacto@autospremium.com</p>
+          <p><strong class="text-gray-700">Dirección:</strong> Av. Principal 123, Ciudad</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Duplica este div para más tarjetas -->
+
+  </main>
+
+  <script>
     function toggleDetails(header) {
-        const cardBody = header.nextElementSibling;
-        const isShowing = cardBody.style.display === 'block';
-        document.querySelectorAll('.card-body').forEach(body => {
-            body.style.display = 'none';
-        })
-        if (!isShowing) {
-            cardBody.style.display = 'block';
-            cardBody.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
+      const content = header.nextElementSibling;
+      const allDetails = document.querySelectorAll('#cars-container > div > div:nth-child(2)');
+      allDetails.forEach(d => {
+        if (d !== content) d.classList.add('hidden');
+      });
+      content.classList.toggle('hidden');
+      if (!content.classList.contains('hidden')) {
+        content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
-    document.addEventListener('click', function(event) {
-        if (!event.target.closest('.card-car') && !event.target.closest('.card-header')) {
-            document.querySelectorAll('.card-body').forEach(body => {
-                body.style.display = 'none';
-            });
-        }
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.bg-gray-800')) {
+        document.querySelectorAll('#cars-container > div > div:nth-child(2)').forEach(el => el.classList.add('hidden'));
+      }
     });
-</script>
+  </script>
+
 </body>
 </html>
