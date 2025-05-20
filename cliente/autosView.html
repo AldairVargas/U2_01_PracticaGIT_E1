@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vista de Carros</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script> <!-- Reemplaza con tu kit de FontAwesome o usa SVG -->
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script> <!-- Reemplaza 'yourkitid' con tu kit de FontAwesome -->
+  <style>
+    .details-container {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .expanded > .details-container {
+      max-height: 500px; /* suficiente para mostrar todo el contenido */
+    }
+  </style>  
 </head>
 <body class="bg-gray-100 font-sans text-gray-800">
 
@@ -28,56 +38,69 @@
     </div>
   </header>
 
-  <!-- Cards -->
-  <main class="max-w-7xl mx-auto py-12 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="cars-container">
-
-    <!-- Card ejemplo -->
-    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all">
-      <div class="bg-gray-800 text-white px-6 py-4 cursor-pointer rounded-t-lg" onclick="toggleDetails(this)">
-        <h2 class="text-lg font-semibold">Toyota Corolla 2023</h2>
-      </div>
-      <div class="hidden transition-all">
-        <div class="px-6 py-4 border-b bg-gray-50">
-          <p class="mb-2"><strong class="text-gray-700">Modelo:</strong> Corolla SE</p>
-          <p class="mb-2"><strong class="text-gray-700">Año:</strong> 2023</p>
-          <p class="mb-2"><strong class="text-gray-700">Color:</strong> Rojo</p>
-          <p class="mb-2"><strong class="text-gray-700">Combustible:</strong> Gasolina</p>
-          <p class="mb-2"><strong class="text-gray-700">Transmisión:</strong> Automática</p>
-          <p><strong class="text-gray-700">Precio:</strong> $25,500</p>
-        </div>
-        <div class="px-6 py-4 bg-white">
-          <p class="font-semibold text-gray-800 border-b pb-2 mb-3">Información del Proveedor</p>
-          <p class="mb-2"><strong class="text-gray-700">Nombre:</strong> Autos Premium S.A.</p>
-          <p class="mb-2"><strong class="text-gray-700">Teléfono:</strong> +1 234 567 890</p>
-          <p class="mb-2"><strong class="text-gray-700">Email:</strong> contacto@autospremium.com</p>
-          <p><strong class="text-gray-700">Dirección:</strong> Av. Principal 123, Ciudad</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Duplica este div para más tarjetas -->
-
+  <!-- Contenedor de Cards -->
+  <main id="cars-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 py-10">
+    <!-- Las tarjetas se generan dinámicamente aquí -->
   </main>
 
+  <!-- Script para consumir la API y renderizar las tarjetas -->
   <script>
-    function toggleDetails(header) {
-      const content = header.nextElementSibling;
-      const allDetails = document.querySelectorAll('#cars-container > div > div:nth-child(2)');
-      allDetails.forEach(d => {
-        if (d !== content) d.classList.add('hidden');
-      });
-      content.classList.toggle('hidden');
-      if (!content.classList.contains('hidden')) {
-        content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    async function fetchAutos() {
+      const container = document.getElementById("cars-container");
+  
+      try {
+        const response = await fetch("http://localhost:8080/api/automoviles");
+        const autos = await response.json();
+  
+        autos.forEach((auto, index) => {
+          const card = document.createElement("div");
+          card.className =
+            "bg-white rounded-lg shadow hover:shadow-xl transition-all";
+  
+          const header = document.createElement("div");
+          header.className =
+            "bg-gray-800 text-white px-6 py-4 cursor-pointer rounded-t-lg";
+          header.innerHTML = `<h2 class="text-lg font-semibold">${auto.marca} ${auto.modelo}</h2>`;
+  
+          const details = document.createElement("div");
+          details.className = "details-container"; // controlamos con clase
+  
+          const carDetails = document.createElement("div");
+          carDetails.className = "px-6 py-4 bg-gray-50 space-y-2 text-sm";
+          carDetails.innerHTML = `
+            <p><strong>Modelo:</strong> ${auto.modelo}</p>
+            <p><strong>Color:</strong> ${auto.color}</p>
+            <p><strong>Placas:</strong> ${auto.placas}</p>
+            <p><strong>Tipo:</strong> ${auto.tipo}</p>
+            <p><strong>Contacto Proveedor:</strong> ${auto.contactoProveedor || 'No disponible'}</p>
+          `;
+  
+          details.appendChild(carDetails);
+  
+          header.addEventListener("click", () => {
+            // Cierra todos los demás
+            document.querySelectorAll("#cars-container > div").forEach((cardEl) => {
+              if (cardEl !== card) {
+                cardEl.classList.remove("expanded");
+              }
+            });
+  
+            // Alternar solo la tarjeta clickeada
+            card.classList.toggle("expanded");
+          });
+  
+          card.appendChild(header);
+          card.appendChild(details);
+          container.appendChild(card);
+        });
+      } catch (err) {
+        container.innerHTML =
+          "<p class='text-red-500'>Error al cargar automóviles</p>";
+        console.error(err);
       }
     }
-
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest('.bg-gray-800')) {
-        document.querySelectorAll('#cars-container > div > div:nth-child(2)').forEach(el => el.classList.add('hidden'));
-      }
-    });
-  </script>
-
+  
+    fetchAutos();
+  </script>  
 </body>
 </html>
