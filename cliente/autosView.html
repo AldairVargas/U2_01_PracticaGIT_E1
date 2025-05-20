@@ -1,106 +1,418 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vista de Carros</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script> <!-- Reemplaza 'yourkitid' con tu kit de FontAwesome -->
-  <style>
-    .details-container {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-    .expanded > .details-container {
-      max-height: 500px; /* suficiente para mostrar todo el contenido */
-    }
-  </style>  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vista de Carros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .details-container {
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans text-gray-800">
+    <header class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-16 relative">
+        <div class="absolute inset-0 opacity-10 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1350&q=80');"></div>
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-4xl font-bold mb-4"><i class="fas fa-car text-red-500 mr-2"></i>Explora Nuestro Catálogo</h1>
+            <p class="text-lg max-w-xl mx-auto">Descubre la combinación perfecta de estilo, rendimiento y confianza en nuestra selección premium de vehículos.</p>
+            <div id="stats-container" class="mt-6 flex justify-center gap-6 flex-wrap">
+                <div class="bg-white/10 backdrop-blur px-6 py-4 rounded-lg border border-white/20">
+                    <div class="text-2xl font-bold text-red-400">150+</div>
+                    <div class="text-sm uppercase tracking-wider text-white/80">Vehículos</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur px-6 py-4 rounded-lg border border-white/20">
+                    <div class="text-2xl font-bold text-red-400">25</div>
+                    <div class="text-sm uppercase tracking-wider text-white/80">Marcas</div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <!-- Encabezado Hero -->
-  <header class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-16 relative">
-    <div class="absolute inset-0 opacity-10 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1350&q=80');"></div>
-    <div class="relative z-10 text-center px-4">
-      <h1 class="text-4xl font-bold mb-4"><i class="fas fa-car text-red-500 mr-2"></i>Explora Nuestro Catálogo</h1>
-      <p class="text-lg max-w-xl mx-auto">Descubre la combinación perfecta de estilo, rendimiento y confianza en nuestra selección premium de vehículos.</p>
-      <div class="mt-6 flex justify-center gap-6 flex-wrap">
-        <div class="bg-white/10 backdrop-blur px-6 py-4 rounded-lg border border-white/20">
-          <div class="text-2xl font-bold text-red-400">150+</div>
-          <div class="text-sm uppercase tracking-wider text-white/80">Vehículos</div>
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="relative flex-grow">
+                <input type="text" placeholder="Buscar automóvil..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center gap-2" onclick="openCreateModal()">
+                <i class="fas fa-plus"></i>
+                <span>Nuevo Automóvil</span>
+            </button>
         </div>
-        <div class="bg-white/10 backdrop-blur px-6 py-4 rounded-lg border border-white/20">
-          <div class="text-2xl font-bold text-red-400">25</div>
-          <div class="text-sm uppercase tracking-wider text-white/80">Marcas</div>
-        </div>
-      </div>
     </div>
-  </header>
 
-  <!-- Contenedor de Cards -->
-  <main id="cars-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 py-10">
-    <!-- Las tarjetas se generan dinámicamente aquí -->
-  </main>
+    <main id="cars-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 py-10">
+    </main>
 
-  <!-- Script para consumir la API y renderizar las tarjetas -->
-  <script>
-    async function fetchAutos() {
-      const container = document.getElementById("cars-container");
-  
-      try {
-        const response = await fetch("http://localhost:8080/api/automoviles");
-        const autos = await response.json();
-  
-        autos.forEach((auto, index) => {
-          const card = document.createElement("div");
-          card.className =
-            "bg-white rounded-lg shadow hover:shadow-xl transition-all";
-  
-          const header = document.createElement("div");
-          header.className =
-            "bg-gray-800 text-white px-6 py-4 cursor-pointer rounded-t-lg";
-          header.innerHTML = `<h2 class="text-lg font-semibold">${auto.marca} ${auto.modelo}</h2>`;
-  
-          const details = document.createElement("div");
-          details.className = "details-container"; // controlamos con clase
-  
-          const carDetails = document.createElement("div");
-          carDetails.className = "px-6 py-4 bg-gray-50 space-y-2 text-sm";
-          carDetails.innerHTML = `
-            <p><strong>Modelo:</strong> ${auto.modelo}</p>
-            <p><strong>Color:</strong> ${auto.color}</p>
-            <p><strong>Placas:</strong> ${auto.placas}</p>
-            <p><strong>Tipo:</strong> ${auto.tipo}</p>
-            <p><strong>Contacto Proveedor:</strong> ${auto.contactoProveedor || 'No disponible'}</p>
-          `;
-  
-          details.appendChild(carDetails);
-  
-          header.addEventListener("click", () => {
-            // Cierra todos los demás
-            document.querySelectorAll("#cars-container > div").forEach((cardEl) => {
-              if (cardEl !== card) {
-                cardEl.classList.remove("expanded");
-              }
+    <div id="createModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden" style="z-index: 1000;">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <h2 class="text-xl font-bold mb-4">Crear Automóvil</h2>
+            <form onsubmit="createAuto(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700">Marca</label>
+                    <input id="createMarca" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Modelo</label>
+                    <input id="createModelo" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Color</label>
+                    <input id="createColor" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Placas</label>
+                    <input id="createPlacas" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tipo</label>
+                    <input id="createTipo" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Contacto del Proveedor</label>
+                    <input id="createContacto" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="flex justify-center gap-4 mt-4">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+                    <button type="button" class="bg-red-500 text-white px-4 py-2 rounded" onclick="closeCreateModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden" style="z-index: 1000;">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <h2 class="text-xl font-bold mb-4">Editar Automóvil</h2>
+            <form onsubmit="saveEditAuto(event)">
+                <input type="hidden" id="editId">
+                <div class="mb-4">
+                    <label class="block text-gray-700">Marca</label>
+                    <input id="editMarca" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Modelo</label>
+                    <input id="editModelo" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Color</label>
+                    <input id="editColor" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Placas</label>
+                    <input id="editPlacas" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tipo</label>
+                    <input id="editTipo" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Contacto del Proveedor</label>
+                    <input id="editContacto" type="text" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="flex justify-center gap-4 mt-4">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+                    <button type="button" class="bg-red-500 text-white px-4 py-2 rounded" onclick="closeEditModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        async function fetchAutos() {
+            const container = document.getElementById("cars-container");
+            container.innerHTML = '';
+
+            try {
+                const response = await fetch("http://localhost:8080/api/automoviles");
+                const autos = await response.json();
+
+                autos.forEach((auto) => {
+                    const card = document.createElement("div");
+                    card.className = "bg-white rounded-lg shadow hover:shadow-xl transition-all";
+
+                    const header = document.createElement("div");
+                    header.className = "bg-gray-800 text-white px-6 py-4 rounded-t-lg";
+                    header.innerHTML = `<h2 class="text-lg font-semibold">${auto.marca} ${auto.modelo}</h2>`;
+
+                    const details = document.createElement("div");
+                    details.className = "px-6 py-4 bg-gray-50 space-y-2 text-sm";
+                    details.innerHTML = `
+                        <p><strong>Modelo:</strong> ${auto.modelo}</p>
+                        <p><strong>Color:</strong> ${auto.color}</p>
+                        <p><strong>Placas:</strong> ${auto.placas}</p>
+                        <p><strong>Tipo:</strong> ${auto.tipo}</p>
+                        <p><strong>Contacto Proveedor:</strong> ${auto.contactoProveedor || 'No disponible'}</p>
+                        <div class="flex justify-end gap-2 mt-4">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded" onclick="updateAuto(${auto.id})">Actualizar</button>
+                            <button class="bg-red-500 text-white px-3 py-1 rounded" onclick="deleteAuto(${auto.id})">Eliminar</button>
+                        </div>
+                    `;
+
+                    card.appendChild(header);
+                    card.appendChild(details);
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al cargar los automóviles'
+                });
+                console.error(err);
+            }
+        }
+
+        async function createAuto(event) {
+            event.preventDefault();
+            const formData = {
+                marca: document.getElementById('createMarca').value,
+                modelo: document.getElementById('createModelo').value,
+                color: document.getElementById('createColor').value,
+                placas: document.getElementById('createPlacas').value,
+                tipo: document.getElementById('createTipo').value,
+                contactoProveedor: document.getElementById('createContacto').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/api/automoviles', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Automóvil creado correctamente'
+                    });
+                    closeCreateModal();
+                    event.target.reset();
+                    fetchAutos();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al crear el automóvil'
+                    });
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al crear el automóvil'
+                });
+            }
+        }
+
+        async function deleteAuto(id) {
+            const result = await Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Esta acción no se puede deshacer",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
             });
-  
-            // Alternar solo la tarjeta clickeada
-            card.classList.toggle("expanded");
-          });
-  
-          card.appendChild(header);
-          card.appendChild(details);
-          container.appendChild(card);
-        });
-      } catch (err) {
-        container.innerHTML =
-          "<p class='text-red-500'>Error al cargar automóviles</p>";
-        console.error(err);
-      }
+
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`http://localhost:8080/api/automoviles/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        Swal.fire(
+                            '¡Eliminado!',
+                            'El automóvil ha sido eliminado.',
+                            'success'
+                        );
+                        fetchAutos();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al eliminar el automóvil'
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al eliminar el automóvil'
+                    });
+                }
+            }
+        }
+
+        async function saveEditAuto(event) {
+            event.preventDefault();
+            const id = document.getElementById('editId').value;
+            const formData = {
+                marca: document.getElementById('editMarca').value,
+                modelo: document.getElementById('editModelo').value,
+                color: document.getElementById('editColor').value,
+                placas: document.getElementById('editPlacas').value,
+                tipo: document.getElementById('editTipo').value,
+                contactoProveedor: document.getElementById('editContacto').value
+            };
+
+            try {
+                const response = await fetch(`http://localhost:8080/api/automoviles/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Automóvil actualizado correctamente'
+                    });
+                    closeEditModal();
+                     fetchAutos();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al actualizar el automóvil'
+                    });
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al actualizar el automóvil'
+                });
+            }
+        }
+
+        function openCreateModal() {
+            document.getElementById('createModal').classList.remove('hidden');
+            document.getElementById('stats-container').classList.add('hidden');
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').classList.add('hidden');
+            document.getElementById('stats-container').classList.remove('hidden');
+        }
+
+        function openEditModal() {
+            document.getElementById('editModal').classList.remove('hidden');
+            document.getElementById('stats-container').classList.add('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+            document.getElementById('stats-container').classList.remove('hidden');
+        }
+        
+        fetchAutos();
+
+        async function updateAuto(id) {
+            try {
+                const response = await fetch(`http://localhost:8080/api/automoviles/${id}`);
+                const auto = await response.json();
+                
+                document.getElementById('editId').value = auto.id;
+                document.getElementById('editMarca').value = auto.marca;
+                document.getElementById('editModelo').value = auto.modelo;
+                document.getElementById('editColor').value = auto.color;
+                document.getElementById('editPlacas').value = auto.placas;
+                document.getElementById('editTipo').value = auto.tipo;
+                document.getElementById('editContacto').value = auto.contactoProveedor || '';
+                
+                openEditModal();
+            } catch (error) {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al cargar los datos del automóvil'
+                });
+            }
+        }
+
+    const searchInput = document.querySelector('input[type="text"]');
+
+    searchInput.addEventListener('input', function() {
+        filterCars(this.value.toLowerCase());
+    });
+
+    async function filterCars(searchTerm) {
+        try {
+            const response = await fetch("http://localhost:8080/api/automoviles");
+            const autos = await response.json();
+            
+            const container = document.getElementById("cars-container");
+            container.innerHTML = '';
+            
+            const filteredAutos = autos.filter(auto => {
+                return (
+                    auto.marca.toLowerCase().includes(searchTerm) ||
+                    auto.modelo.toLowerCase().includes(searchTerm) ||
+                    auto.color.toLowerCase().includes(searchTerm) ||
+                    auto.placas.toLowerCase().includes(searchTerm) ||
+                    auto.tipo.toLowerCase().includes(searchTerm) ||
+                    (auto.contactoProveedor && auto.contactoProveedor.toLowerCase().includes(searchTerm))
+                );
+            });
+            
+            displayCars(filteredAutos);
+        } catch (err) {
+            console.error('Error al filtrar automóviles:', err);
+        }
     }
-  
-    fetchAutos();
-  </script>  
+
+    function displayCars(autos) {
+        const container = document.getElementById("cars-container");
+        
+        if (autos.length === 0) {
+            container.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">No se encontraron automóviles que coincidan con la búsqueda</p>';
+            return;
+        }
+    
+        autos.forEach((auto) => {
+            const card = document.createElement("div");
+            card.className = "bg-white rounded-lg shadow hover:shadow-xl transition-all";
+
+            const header = document.createElement("div");
+            header.className = "bg-gray-800 text-white px-6 py-4 rounded-t-lg";
+            header.innerHTML = `<h2 class="text-lg font-semibold">${auto.marca} ${auto.modelo}</h2>`;
+
+            const details = document.createElement("div");
+            details.className = "px-6 py-4 bg-gray-50 space-y-2 text-sm";
+            details.innerHTML = `
+                <p><strong>Modelo:</strong> ${auto.modelo}</p>
+                <p><strong>Color:</strong> ${auto.color}</p>
+                <p><strong>Placas:</strong> ${auto.placas}</p>
+                <p><strong>Tipo:</strong> ${auto.tipo}</p>
+                <p><strong>Contacto Proveedor:</strong> ${auto.contactoProveedor || 'No disponible'}</p>
+                <div class="flex justify-end gap-2 mt-4">
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded" onclick="updateAuto(${auto.id})">Actualizar</button>
+                    <button class="bg-red-500 text-white px-3 py-1 rounded" onclick="deleteAuto(${auto.id})">Eliminar</button>
+                </div>
+            `;
+
+            card.appendChild(header);
+            card.appendChild(details);
+            container.appendChild(card);
+        });
+    }
+    </script>
 </body>
 </html>
