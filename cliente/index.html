@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoProveedores - Soluciones en transporte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .transition-slow {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-truck-moving text-blue-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-blue-600">AutoProveedores</span>
+                    </div>
+                    <div class="hidden md:ml-8 md:flex md:space-x-8">
+                        <a href="#" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Inicio</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Servicios</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Proveedores</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Inicio</a>
+                <a href="#" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Servicios</a>
+                <a href="#" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Proveedores</a>
+                <a href="#" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Contacto</a>
+                <div class="mt-4 px-4">
+                    <a href="#" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-base font-medium block text-center">Acceder</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-gradient text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">Conectamos proveedores con soluciones de transporte</h1>
+                    <p class="text-xl md:text-2xl text-blue-100 mb-8">La plataforma líder para gestión de flotas vehiculares y proveedores logísticos.</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-lg text-lg font-semibold text-center transition-slow">Registrarse</a>
+                        <a href="#" class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-6 py-3 rounded-lg text-lg font-semibold text-center transition-slow">Ver Demo</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Camión de carga" class="rounded-lg shadow-2xl transform rotate-1 transition-slow hover:rotate-0">
+                    <div class="absolute -bottom-5 -left-5 bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg shadow-lg">
+                        <span class="font-bold">+500 proveedores</span> registrados
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logos Section -->
+    <div class="bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-gray-500 mb-8">Confían en nosotros</p>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
+                <img src="https://logo.clearbit.com/ford.com" alt="Ford" class="h-12 opacity-60 hover:opacity-100 transition-slow mx-auto">
+                <img src="https://logo.clearbit.com/toyota.com" alt="Toyota" class="h-12 opacity-60 hover:opacity-100 transition-slow mx-auto">
+                <img src="https://logo.clearbit.com/chevrolet.com" alt="Chevrolet" class="h-12 opacity-60 hover:opacity-100 transition-slow mx-auto">
+                <img src="https://logo.clearbit.com/volvo.com" alt="Volvo" class="h-12 opacity-60 hover:opacity-100 transition-slow mx-auto">
+                <img src="https://logo.clearbit.com/dhl.com" alt="DHL" class="h-12 opacity-60 hover:opacity-100 transition-slow mx-auto">
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Gestión inteligente de proveedores</h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">Optimiza tu cadena de suministro con nuestras herramientas especializadas</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-slow">
+                    <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-truck text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Registro de Flotas</h3>
+                    <p class="text-gray-600">Administra toda la información de tus vehículos: placas, modelos, marcas y proveedores asociados.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-slow">
+                    <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Analíticas Avanzadas</h3>
+                    <p class="text-gray-600">Obtén reportes detallados sobre el desempeño de tus proveedores y flotas vehiculares.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 p-8 rounded-xl card-hover transition-slow">
+                    <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-users-cog text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Gestión de Proveedores</h3>
+                    <p class="text-gray-600">Mantén toda la información de contacto, documentos y contratos de tus proveedores en un solo lugar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Showcase Section -->
+    <div class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex items-center gap-12">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Vehículos de transporte" class="rounded-lg shadow-xl w-full">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-extrabold text-gray-900 mb-6">Plataforma especializada en transporte</h2>
+                    <p class="text-gray-600 mb-6">Nuestra solución está diseñada específicamente para las necesidades del sector transporte y logística, con funcionalidades que realmente necesitas.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-blue-100 p-2 rounded-lg mr-4">
+                                <i class="fas fa-check text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Registro detallado</h4>
+                                <p class="text-gray-600">Captura toda la información técnica y legal de tus vehículos y proveedores.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-blue-100 p-2 rounded-lg mr-4">
+                                <i class="fas fa-check text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Notificaciones inteligentes</h4>
+                                <p class="text-gray-600">Alertas para vencimientos de documentos, mantenimientos y renovaciones.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-blue-100 p-2 rounded-lg mr-4">
+                                <i class="fas fa-check text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Integraciones</h4>
+                                <p class="text-gray-600">Conecta con tus sistemas de contabilidad, ERP y otras herramientas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Lo que dicen nuestros clientes</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Juan Pérez" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Juan Pérez</h4>
+                            <p class="text-blue-600 text-sm">Transportes Pérez</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Desde que implementamos AutoProveedores, hemos reducido nuestros tiempos de gestión en un 40%. La plataforma es intuitiva y cubre todas nuestras necesidades."</p>
+                    <div class="mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María González" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">María González</h4>
+                            <p class="text-blue-600 text-sm">Logística Integral</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"La gestión de proveedores nunca fue tan fácil. Ahora tenemos toda la información centralizada y accesible desde cualquier dispositivo."</p>
+                    <div class="mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Carlos Rodríguez" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Carlos Rodríguez</h4>
+                            <p class="text-blue-600 text-sm">Distribuidora CR</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Las alertas automáticas nos han ayudado a mantener al día toda la documentación de nuestros vehículos y proveedores, evitando multas y contratiempos."</p>
+                    <div class="mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-blue-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="md:w-2/3 mb-8 md:mb-0">
+                    <h2 class="text-3xl font-bold mb-4">¿Listo para optimizar tu gestión de proveedores?</h2>
+                    <p class="text-blue-100 text-lg">Regístrate hoy y comienza a disfrutar de todos los beneficios de nuestra plataforma.</p>
+                </div>
+                <div class="md:w-1/3">
+                    <a href="#" class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-bold text-center block transition-slow">Comenzar ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">AutoProveedores</h3>
+                    <p class="text-gray-400">La solución integral para la gestión de proveedores en el sector transporte.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Enlaces</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Inicio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Servicios</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Proveedores</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Términos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacidad</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cookies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contacto</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> Av. Principal 123, Ciudad</li>
+                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2"></i> +1 234 567 890</li>
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> info@autoproveedores.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 AutoProveedores. Todos los derechos reservados.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para el menú móvil -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('[aria-controls="mobile-menu"]');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !expanded);
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

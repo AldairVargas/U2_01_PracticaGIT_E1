@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Proveedores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Lista de Proveedores</h1>
+        
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- Filtros -->
+            <div class="p-4 border-b border-gray-200 bg-gray-50">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="relative flex-grow">
+                        <input type="text" placeholder="Buscar proveedor..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center gap-2">
+                        <i class="fas fa-plus"></i>
+                        <span>Nuevo Proveedor</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Lista de Proveedores -->
+            <div class="divide-y divide-gray-200">
+                <!-- Proveedor 1 -->
+                <div class="proveedor-item group" x-data="{ open: false }">
+                    <div @click="open = !open" class="cursor-pointer p-4 hover:bg-gray-50 flex justify-between items-center">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                <i class="fas fa-truck text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">ABC-123</h3>
+                                <p class="text-sm text-gray-600">Toyota - Hilux 2022</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Activo</span>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-200" :class="{ 'transform rotate-180': open }"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Detalles desplegables -->
+                    <div x-show="open" x-collapse class="px-4 pb-4 bg-gray-50">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Nombre completo</h4>
+                                <p class="text-gray-800">Juan Pérez Martínez</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Correo electrónico</h4>
+                                <p class="text-gray-800">juan.perez@example.com</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Teléfono</h4>
+                                <p class="text-gray-800">+1 234 567 890</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Dirección</h4>
+                                <p class="text-gray-800">Calle Falsa 123, Ciudad</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 flex gap-2">
+                            <button class="text-blue-600 hover:text-blue-800 px-3 py-1 rounded-md text-sm font-medium">
+                                <i class="fas fa-edit mr-1"></i> Editar
+                            </button>
+                            <button class="text-red-600 hover:text-red-800 px-3 py-1 rounded-md text-sm font-medium">
+                                <i class="fas fa-trash mr-1"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Proveedor 2 -->
+                <div class="proveedor-item group" x-data="{ open: false }">
+                    <div @click="open = !open" class="cursor-pointer p-4 hover:bg-gray-50 flex justify-between items-center">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                                <i class="fas fa-shipping-fast text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">XYZ-789</h3>
+                                <p class="text-sm text-gray-600">Ford - F-150 2021</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Pendiente</span>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-200" :class="{ 'transform rotate-180': open }"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Detalles desplegables -->
+                    <div x-show="open" x-collapse class="px-4 pb-4 bg-gray-50">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Nombre completo</h4>
+                                <p class="text-gray-800">María González López</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Correo electrónico</h4>
+                                <p class="text-gray-800">maria.gonzalez@example.com</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Teléfono</h4>
+                                <p class="text-gray-800">+1 987 654 321</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Dirección</h4>
+                                <p class="text-gray-800">Avenida Siempre Viva 742, Ciudad</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 flex gap-2">
+                            <button class="text-blue-600 hover:text-blue-800 px-3 py-1 rounded-md text-sm font-medium">
+                                <i class="fas fa-edit mr-1"></i> Editar
+                            </button>
+                            <button class="text-red-600 hover:text-red-800 px-3 py-1 rounded-md text-sm font-medium">
+                                <i class="fas fa-trash mr-1"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Proveedor 3 -->
+                <div class="proveedor-item group" x-data="{ open: false }">
+                    <div @click="open = !open" class="cursor-pointer p-4 hover:bg-gray-50 flex justify-between items-center">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                                <i class="fas fa-boxes text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">DEF-456</h3>
+                                <p class="text-sm text-gray-600">Chevrolet - Silverado 2023</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Activo</span>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-200" :class="{ 'transform rotate-180': open }"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Detalles desplegables -->
+                    <div x-show="open" x-collapse class="px-4 pb-4 bg-gray-50">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Nombre completo</h4>
+                                <p class="text-gray-800">Carlos Rodríguez Sánchez</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Correo electrónico</h4>
+                                <p class="text-gray-800">carlos.rodriguez@example.com</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Teléfono</h4>
+                                <p class="text-gray-800">+1 555 123 4567</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-500 mb-1">Dirección</h4>
+                                <p class="text-gray-800">Boulevard Los Próceres 100, Ciudad</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 flex gap-2">
+                            <button class="text-blue-600 hover:text-blue-800 px-3 py-1 rounded-md text-sm font-medium">
+                                <i class="fas fa-edit mr-1"></i> Editar
+                            </button>
+                            <button class="text-red-600 hover:text-red-800 px-3 py-1 rounded-md text-sm font-medium">
+                                <i class="fas fa-trash mr-1"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Paginación -->
+            <div class="px-4 py-3 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700">
+                            Mostrando
+                            <span class="font-medium">1</span>
+                            a
+                            <span class="font-medium">3</span>
+                            de
+                            <span class="font-medium">12</span>
+                            resultados
+                        </p>
+                    </div>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Anterior</span>
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <a href="#" aria-current="page" class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                1
+                            </a>
+                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                2
+                            </a>
+                            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                                3
+                            </a>
+                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Siguiente</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alpine JS para la funcionalidad de despliegue -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+</body>
+</html>
