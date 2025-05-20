@@ -8,6 +8,7 @@ public class AutomovilesApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AutomovilesApplication.class, args);
+        System.out.println("🚗 Servidor Automóviles iniciado correctamente en http://localhost:8080");
     }
 
 }

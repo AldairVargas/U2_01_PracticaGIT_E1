@@ -1,7 +1,7 @@
 package mx.edu.utez.automoviles.controllers;
 
-import mx.edu.utez.automoviles.model.Automovil;
-import mx.edu.utez.automoviles.repository.AutomovilRepository;
+import mx.edu.utez.automoviles.models.Automovil;
+import mx.edu.utez.automoviles.repositories.AutomovilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
